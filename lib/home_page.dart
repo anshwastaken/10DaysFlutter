@@ -6,13 +6,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Catalog App"),),
+      appBar: AppBar(title: const Text("Catalog App"),),
         body: Center(
           child: Container(
-            child: Text("Welcome to Ansh Learning Flutter"),
+            child: const Text("Welcome to Ansh Learning Flutter"),
           ),
         ),
-        drawer: Drawer(),
+        drawer: const Drawer(),
       );
   }
 }
