@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/models/catalo.dart';
+import 'package:flutter_learning/widgets/Item_widget.dart';
 import 'package:flutter_learning/widgets/drawer.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,13 +9,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Catalog App"),backgroundColor: Colors.deepPurple,),
-        body: Center(
-          child: Container(
-            child: const Text("Welcome to Ansh Learning Flutter"),
-          ),
+      appBar: AppBar(
+        title: const Text("Catalog App"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          itemCount: Catalog.products.length,
+          itemBuilder: (context, index) {
+            return ItemWidget(
+              item: Catalog.products[index],
+            );
+          },
         ),
-        drawer: MyDrawer(),
-      );
+      ),
+      drawer: MyDrawer(),
+    );
   }
 }

@@ -30,7 +30,7 @@ class MyDrawer extends StatelessWidget {
             ),
             const ListTile(
               leading: Icon(CupertinoIcons.profile_circled,color: Colors.white,),
-              title: Text("Home",style: TextStyle(color: Colors.white),textScaleFactor: 1.2,),
+              title: Text("Profile",style: TextStyle(color: Colors.white),textScaleFactor: 1.2,),
             )
           ],
         ),
