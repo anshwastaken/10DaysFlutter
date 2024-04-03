@@ -3,6 +3,7 @@ import 'package:flutter_learning/home_page.dart';
 import 'package:flutter_learning/login_page.dart';
 import 'package:flutter_learning/utils/routes.dart';
 import 'package:flutter_learning/widgets/themes.dart';
+// ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
