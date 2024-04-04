@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -40,6 +41,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.canvasColor,
+      floatingActionButton: FloatingActionButton(onPressed: (){},
+      child: Icon(CupertinoIcons.cart),
+      backgroundColor: Colors.indigo,),
       body: SafeArea(
         child: Container(
           padding: Vx.m16,
@@ -48,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               CatalogTop(),
               if (Catalog.products != null && Catalog.products.isNotEmpty)
-                Cataloglist().expand()
+                Cataloglist().expand().py16()
               else
                 CircularProgressIndicator().centered().expand()
             ],
@@ -67,8 +72,8 @@ class CatalogTop extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Catalog App".text.xl5.bold.make(),
-        " Trending Products".text.xl2.make()
+        "Catalog App".text.color(context.theme.canvasColor).xl5.bold.make(),
+        " Trending Products".text.color(context.theme.canvasColor).xl2.make()
       ],
     );
   }
@@ -124,6 +129,6 @@ class CatalogItem extends StatelessWidget {
           ],
         ))
       ],
-    )).white.roundedLg.square(150).py16.make();
+    )).color(context.cardColor).roundedLg.square(150).py16.make();
   }
 }
