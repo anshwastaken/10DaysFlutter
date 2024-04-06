@@ -11,10 +11,15 @@ class Catalog {
         image:
             "https://cdn.mos.cms.futurecdn.net/yDn3ZSXu9eSBxmXQDZ4PCF-1200-80.jpg")
   ];
+
+   getbyid(int id) =>
+      products.firstWhere((element) => element.id == id, orElse: null);
+
+  getbyposition(int pos) => products[pos];
 }
 
 class Item {
-  final num id;
+  final int id;
   final String name;
   final String desc;
   final num price;

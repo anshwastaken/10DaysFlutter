@@ -29,7 +29,7 @@ class MyThemes {
           elevation: 0.0,
           color: Colors.black,
           iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(color :context.canvasColor)
+          titleTextStyle: TextStyle(color :Colors.white)
           )
           );
 

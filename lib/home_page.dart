@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_learning/homedetails.dart';
 
 import 'package:flutter_learning/models/catalo.dart';
+import 'package:flutter_learning/utils/routes.dart';
 import 'package:flutter_learning/widgets/Item_widget.dart';
 import 'package:flutter_learning/widgets/drawer.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -29,9 +30,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadata() async {
-    var json = await rootBundle.loadString("assets/files/Catalog.json");
-    var decodedata = jsonDecode(json);
-    var productdata = decodedata["products"];
+    await Future.delayed(Duration(seconds: 2));
+    final json = await rootBundle.loadString("assets/files/Catalog.json");
+    final decodedata = jsonDecode(json);
+    final productdata = decodedata["products"];
     Catalog.products =
         List.from(productdata).map<Item>((item) => Item.fromMap(item)).toList();
 
@@ -42,9 +44,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.canvasColor,
-      floatingActionButton: FloatingActionButton(onPressed: (){},
-      child: Icon(CupertinoIcons.cart),
-      backgroundColor: Colors.indigo,),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, Myroutes.cartroute);
+        },
+        child: Icon(CupertinoIcons.cart),
+        backgroundColor: Colors.indigo,
+      ),
       body: SafeArea(
         child: Container(
           padding: Vx.m16,
@@ -90,8 +96,12 @@ class Cataloglist extends StatelessWidget {
       itemBuilder: (context, index) {
         final catalog = Catalog.products[index];
         return InkWell(
-          onTap: () => Navigator.push(context, 
-          MaterialPageRoute(builder: (context)=>HomeDetails(catalog: catalog,))),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeDetails(
+                        catalog: catalog,
+                      ))),
           child: CatalogItem(
             catalog: catalog,
           ),
@@ -112,8 +122,8 @@ class CatalogItem extends StatelessWidget {
         child: Row(
       children: [
         Hero(
-          tag: Key(catalog.id.toString()),
-          child: Image.network(catalog.image).w40(context)),
+            tag: Key(catalog.id.toString()),
+            child: Image.network(catalog.image).w40(context)),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,14 +131,34 @@ class CatalogItem extends StatelessWidget {
           children: [
             catalog.name.text.xl2.bold.make(),
             catalog.desc.text.textStyle(context.captionStyle).make(),
-            ButtonBar(alignment: MainAxisAlignment.spaceBetween,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
               children: [
                 "\$${catalog.price}".text.bold.make(),
-                ElevatedButton(onPressed: (){}, child: "Buy".text.bold.make())],
+                AddToCart()
+              ],
             )
           ],
         ))
       ],
     )).color(context.cardColor).roundedLg.square(150).py16.make();
+  }
+}
+
+class AddToCart extends StatefulWidget {
+  const AddToCart({
+    super.key,
+  });
+
+  @override
+  State<AddToCart> createState() => _AddToCartState();
+}
+
+class _AddToCartState extends State<AddToCart> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(onPressed: () {
+      
+    }, child: "Buy".text.bold.make());
   }
 }
