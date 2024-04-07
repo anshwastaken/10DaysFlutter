@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 
 class Catalog {
+  static final catmodel = Catalog._internal();
+  Catalog._internal();
+  factory Catalog() => catmodel;
+
   static List<Item> products = [
     Item(
         id: 1,
@@ -12,7 +16,7 @@ class Catalog {
             "https://cdn.mos.cms.futurecdn.net/yDn3ZSXu9eSBxmXQDZ4PCF-1200-80.jpg")
   ];
 
-   getbyid(int id) =>
+  getbyid(int id) =>
       products.firstWhere((element) => element.id == id, orElse: null);
 
   getbyposition(int pos) => products[pos];

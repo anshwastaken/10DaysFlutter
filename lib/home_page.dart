@@ -1,17 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_learning/Cart_page.dart';
 import 'package:flutter_learning/homedetails.dart';
 
 import 'package:flutter_learning/models/catalo.dart';
 import 'package:flutter_learning/utils/routes.dart';
-import 'package:flutter_learning/widgets/Item_widget.dart';
-import 'package:flutter_learning/widgets/drawer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -135,7 +133,7 @@ class CatalogItem extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               children: [
                 "\$${catalog.price}".text.bold.make(),
-                AddToCart()
+                AddToCart(catalog: catalog)
               ],
             )
           ],
@@ -145,20 +143,26 @@ class CatalogItem extends StatelessWidget {
   }
 }
 
-class AddToCart extends StatefulWidget {
-  const AddToCart({
+class AddToCart extends StatelessWidget {
+  final Item catalog;
+  AddToCart({
     super.key,
+    required this.catalog,
   });
-
-  @override
-  State<AddToCart> createState() => _AddToCartState();
-}
-
-class _AddToCartState extends State<AddToCart> {
+  final _cart = CartList();
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {
-      
-    }, child: "Buy".text.bold.make());
+    bool addtocart = _cart.items.contains(catalog) ?? false;
+    return ElevatedButton(
+        onPressed: () {
+          if (!addtocart) {
+            addtocart = addtocart.toggle();
+            final _catalog = Catalog();
+            final _cart = CartList();
+            _cart.catalog = _catalog;
+            _cart.add(catalog);
+          }
+        },
+        child: addtocart ? Icon(Icons.done) : "Buy".text.bold.make());
   }
 }

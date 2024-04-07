@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/models/cart.dart';
+import 'package:flutter_learning/models/catalo.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CartPage extends StatelessWidget {
@@ -24,8 +25,6 @@ class CartPage extends StatelessWidget {
 }
 
 class _CartTotal extends StatelessWidget {
-  const _CartTotal({super.key});
-
   @override
   Widget build(BuildContext context) {
     final _cart = CartList();
@@ -34,7 +33,7 @@ class _CartTotal extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          "\$${_cart}".text.xl5.color(context.cardColor).make(),
+          "\$${_cart.totalprice}".text.xl5.color(context.cardColor).make(),
           ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -50,6 +49,10 @@ class _CartTotal extends StatelessWidget {
 class CartList extends StatefulWidget {
   const CartList({super.key});
 
+  get totalprice => null;
+
+  set catalog(Catalog catalog) {}
+
   @override
   State<CartList> createState() => _CartListState();
 }
@@ -58,13 +61,21 @@ class _CartListState extends State<CartList> {
   final _cart = Cartlist();
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _cart.items?.length,
-        itemBuilder: (context, index) => ListTile(
-              leading: Icon(Icons.done),
-              trailing: IconButton(
-                  onPressed: () {}, icon: Icon(Icons.remove_circle_outline)),
-              title: "Item 1".text.make(),
-            ));
+    return _cart.items.isEmpty
+        ? "Cart is Empty".text.makeCentered()
+        : ListView.builder(
+            itemCount: _cart.items.length,
+            itemBuilder: (context, index) => ListTile(
+                  leading: Icon(Icons.done),
+                  trailing: IconButton(
+                      onPressed: () {
+                        _cart.remove(_cart.items[index]);
+                        setState(() {
+                          
+                        });
+                      },
+                      icon: Icon(Icons.remove_circle_outline)),
+                  title: _cart.items[index].name.text.make(),
+                ));
   }
 }

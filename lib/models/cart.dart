@@ -1,6 +1,12 @@
+import 'package:flutter_learning/Cart_page.dart';
 import 'package:flutter_learning/models/catalo.dart';
 
 class Cartlist {
+
+  static final cartmodel = Cartlist._internal();
+  Cartlist._internal();
+  factory Cartlist() => cartmodel;
+
   late Catalog _catalog;
   final List<int> itemsids = [];
 
